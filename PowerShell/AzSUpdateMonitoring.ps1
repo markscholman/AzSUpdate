@@ -3,7 +3,7 @@ $mobilePhone = '+15552293334'
 $pepServer = '10.1.52.224'
 $pepCred = New-Object pscredential("AZURESTACK\cloudadmin",(ConvertTo-SecureString -AsPlainText -Force "<PASSWORD>"))
 $functionUri = '<FUNCTION-URI>.azurewebsites.net'
-$functionCode = '<FUNCTION KEY (Auth level is function - is key behind ?code in URI)>'
+$functionCode = '<FUNCTION KEY (Auth level is function - is key behind ?code= in URI)>'
 #endregion
 
 #region Monitor AzS Update

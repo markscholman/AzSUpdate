@@ -1,4 +1,3 @@
-
 function Monitor-AzSUpdate {
     [cmdletbinding()]
     param(
@@ -74,3 +73,5 @@ function Monitor-AzSUpdate {
         Remove-PSSession -Session $pepSession -Confirm:$false
     }
 }
+
+Export-ModuleMember Monitor-AzSUpdate

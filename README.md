@@ -3,7 +3,7 @@ Tools to interact with Azure Stack Patch and Update (PnU)
 
 This repo contains 2 parts that makes the puzzle. 
 
-First you need to setup an Twilio account and publish the Azure Function into you public Azure Subscription. Technicaly if you have a connected Azure Stack environment hosting it in there should work to. 
+First you need to setup an Twilio account and publish the Azure Function into you public Azure Subscription. Update the SendMessage.cs file with the settings from your Twilio account. Technicaly if you have a connected Azure Stack environment with AppService installed, hosting it in there should work to. 
 
 The second part is a PowerShell module that you need to load onto the HLH server or your admin workstation that is able to reach the privileged endpoints in the Azure Stack stamp.
 
