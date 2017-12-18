@@ -34,15 +34,20 @@ function Monitor-AzSUpdate {
             while($true) {
                 if ($pepSession.State -eq 'Opened' ) {
                     $statusString = Invoke-Command -Session $pepSession -ScriptBlock { Get-AzureStackUpdateStatus -StatusOnly }
-                    $status = $statusString.Value
-                    Write-Output "Azure Stack update is: $status."
-                    if ($status -eq 'Running') {
-                        Write-Output "Sleeping 30 seconds before checking again..."
-                        Start-Sleep -Seconds 30
+                    if ($statusString -ne $null) {
+                        $status = $statusString.Value
+                        Write-Output "Azure Stack update is: $status."
+                        if ($status -eq 'Running') {
+                            Write-Output "Sleeping 30 seconds before checking again..."
+                            Start-Sleep -Seconds 30
+                        } else {
+                            #Send status to twilio function
+                            Invoke-RestMethod -Method Get -Uri "http://$functionURI/api/SendMessage/$mobilePhone`:$status`?code=$functionCode"
+                            break;
+                        }
                     } else {
-                        #Send status to twilio function
-                        Invoke-RestMethod -Method Get -Uri "http://$functionURI/api/SendMessage/$mobilePhone`:$status`?code=$functionCode"
-                        break;
+                        Write-Output "ECE on $pepServer is being updated or status cannot be retrieved at this time. Sleeping 300 seconds before checking again..."
+                        Start-Sleep -Seconds 300
                     }
                 } else {
                     try {
